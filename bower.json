@@ -25,10 +25,12 @@
     "angular-bootstrap": "^2.2.0",
     "angular-datamaps": "^0.1.2",
     "font-awesome": "^4.6.3",
-    "jquery": "^3.1.1",
+    "jquery": "2.1",
     "PACE": "pace#^1.0.2",
     "bootstrap": "^3.3.7",
     "angular-rangeslider": "^0.0.14",
-    "nvd3": "^1.8.4"
+    "nvd3": "^1.8.4",
+    "jquery-easing": "*",
+    "angular-nvd3": "^1.0.9"
   }
 }
