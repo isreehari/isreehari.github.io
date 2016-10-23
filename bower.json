@@ -1,0 +1,31 @@
+{
+  "name": "ttucs5331p2",
+  "homepage": "http://isreehari.com/cs5331p2",
+  "authors": [
+    "Sreehari Inukollu <isreehari@hotmail.com>"
+  ],
+  "description": "TTU CS5331 Project 2 Visualization & Visual Analytics - Fall 2016",
+  "main": "index.html",
+  "keywords": [
+    "Visualization",
+    "Visual",
+    "Analytics"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-bootstrap": "^2.2.0",
+    "angular-datamaps": "^0.1.2",
+    "font-awesome": "^4.6.3",
+    "jquery": "^3.1.1",
+    "PACE": "pace#^1.0.2"
+  }
+}
