@@ -8,6 +8,6 @@
     function customconfig($httpProvider){  };
 
     angular
-        .module('hari_app')
-        .config(['$httpProvider',customconfig])        
+        .module('cs5331')
+        .config(['$httpProvider',customconfig])
 })(window.angular);

@@ -7,5 +7,5 @@
     function MainDirective(){};
     angular
         .module('cs5331')
-        .directive('MainDirective',[MainDirective])
+        .directive('mainDirective',[MainDirective])
     })(window.angular);
