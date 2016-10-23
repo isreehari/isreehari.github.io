@@ -3,5 +3,5 @@
  */
 (function(angular) {
     'use strict';
-    var hari_app = angular.module('hari_app',['ui.bootstrap','ui-rangeSlider','datamaps','nvd3']);
+    var cs5331 = angular.module('cs5331',['ui.bootstrap','ui-rangeSlider','datamaps','nvd3']);
 })(window.angular);

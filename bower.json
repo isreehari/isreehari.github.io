@@ -29,6 +29,8 @@
     "PACE": "pace#^1.0.2",
     "bootstrap": "^3.3.7",
     "angular-rangeslider": "^0.0.14",
-    "nvd3": "^1.8.4"
+    "nvd3": "^1.8.4",
+    "jquery-easing": "*",
+    "angular-nvd3": "^1.0.9"
   }
 }
