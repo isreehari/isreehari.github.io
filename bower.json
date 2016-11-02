@@ -34,6 +34,7 @@
     "angular-nvd3": "^1.0.9"
   },
   "devDependencies": {
-    "d3-cloud": "^1.2.2"
+    "d3-cloud": "^1.2.2",
+    "angular-resource": "^1.5.8"
   }
 }

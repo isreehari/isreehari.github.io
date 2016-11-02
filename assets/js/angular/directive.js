@@ -1,11 +1,11 @@
 (function (angular) {
     'use strict';
 
-    function wordCloud($window) {
+    function wordCloud($window) {//, mostFrequentTermsService
         return {
             restrict: "EA",
             scope: false,
-            template: "<svg width='800' height='400'></svg>",
+            template: "<svg width='1200' height='400'></svg>",
             link: function (scope, elem, attrs) {
                 var wordData = [];
                 var padding = 20;
@@ -14,7 +14,13 @@
                 var rawSvg = elem.find('svg');
                 var svg = d3.select(rawSvg[0]);
 
-                var frequencyList = [{
+                var frequencyList;
+
+                // mostFrequentTermsService.get(function (data) {
+                //     frequencyList = data;
+                // });
+
+                frequencyList = [{
                     "count": 1103,
                     "term": "american"
                 },
@@ -218,13 +224,11 @@
                 var color;
 
                 function setParameters() {
-                    color = d3.scale.linear()
-                        .domain([0, 1, 2, 3, 4, 5, 6, 10, 15, 20, 100])
-                        .range(["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"]);
+                    color = d3.scale.category20();
                 }
 
                 d3.layout.cloud()
-                    .size([800, 200])
+                    .size([1200, 400])
                     .words(frequencyList)
                     .rotate(0)
                     .fontSize(function (d) {
@@ -236,19 +240,13 @@
                 function draw(words) {
                     setParameters();
 
-                    // d3.select("body").append("svg")
-                    //     .attr("width", 850)
-                    //     .attr("height", 350)
                     svg.attr("class", "wordcloud")
                         .append("g")
-                        // without the transform, words would get cutoff to the left and top, they would
-                        // appear outside of the SVG area
-                        // .attr("transform", "translate(320,200)")
                         .selectAll("text")
                         .data(words)
                         .enter().append("text")
                         .style("font-size", function (d) {
-                            return d.count / 10 + "px";
+                            return d.count / 20 + "px";
                         })
                         .style("fill", function (d, i) {
                             return color(i);
@@ -268,5 +266,6 @@
     };
     angular
         .module('cs5331')
+        // .directive('wordCloud', ["$window", "mostFrequentTermsService", wordCloud])
         .directive('wordCloud', ["$window", wordCloud])
 })(window.angular);

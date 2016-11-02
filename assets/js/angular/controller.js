@@ -3,12 +3,12 @@
  * controller
  */
 
-(function(angular){
+(function (angular) {
     'use strict';
-    function MainController($scope){
+    function MainController($scope) {
         var vm = this;
     };
     angular
         .module('cs5331')
-        .controller('MainController',['$scope',MainController])
+        .controller('MainController', ['$scope', MainController]);
 })(window.angular);
