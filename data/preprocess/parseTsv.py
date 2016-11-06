@@ -57,18 +57,44 @@ def mostFrequent(data, n):
 
     return mostFreq
 
+def termDates(data, mostFreq):
+    results = []
+    for entry in data:
+        for t in mostFreq:
+            if t["term"] in entry["allTerms"]:
+                results.append({"time": entry["time"], "term": t["term"]})
+    return results
+
+def monthlyFrequencies(data):
+    d = {}
+    for entry in data:
+        key = (entry["time"][:7], entry["term"])
+        d[key] = d.get(key, 0) + 1
+    results = []
+    for key, value in d.iteritems():
+        results.append({"date": key[0], "term": key[1], "frequency": value})
+    return results
+
 """
 Read the TSV file containing the categories of pipe-separated terms.
 Convert the contents to an array of objects and write them to a JSON file.
 Find the 50 most frequent terms and write them to a JSON file.
 """
-def convertToJson(toPathAllData, toPathMostFreq, fromPath, linesToSkip=0):
+def convertToJson(toPathAllData, toPathMostFreq, toPathMonthlyFreqs, fromPath, linesToSkip=0):
     data = parseFile(fromPath, linesToSkip)
     with open(toPathAllData, "w") as out:
         json.dump(data, out, sort_keys=True, indent=4, ensure_ascii=False)
+
     mostFreq = mostFrequent(data, 50)
+
     with open(toPathMostFreq, "w") as out:
         json.dump(mostFreq, out, sort_keys=True, indent=4, ensure_ascii=False)
 
+    termsByDate = termDates(data, mostFreq)
+    monthlyFreqs = monthlyFrequencies(termsByDate)
+
+    with open(toPathMonthlyFreqs, "w") as out:
+        json.dump(monthlyFreqs, out, sort_keys=True, indent=4, ensure_ascii=False)
+
 if __name__ == '__main__':
-    convertToJson("../wikinews.json", "../mostfrequentterms.json", "../wikinews.tsv", 1)
+    convertToJson("../wikinews.json", "../mostfrequentterms.json", "../monthlyfrequencies.json", "../wikinews.tsv", 1)
