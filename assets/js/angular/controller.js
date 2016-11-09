@@ -7,7 +7,12 @@
     'use strict';
     function MainController($scope) {
         var vm = this;
+        vm.leftNavFilter = false;
+        vm.leftNavFilterShowhide = function(){
+          vm.leftNavFilter = !vm.leftNavFilter;
+        };
     };
+
     angular
         .module('cs5331')
         .controller('MainController', ['$scope', MainController]);

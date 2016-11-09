@@ -1,6 +1,5 @@
 (function (angular) {
     'use strict';
-
     function wordCloud($window) {//, mostFrequentTermsService
         return {
             restrict: "EA",
@@ -264,8 +263,27 @@
             }
         };
     };
+    function leftSideBar(){
+      return {
+          restrict: 'E',
+          replace:true,
+          templateUrl: 'views/leftnavfilter.html',
+          controller: function ($scope, $element) {
+              // Function for collapse ibox
+              $scope.showhide = function () {
+                  var sideBar = $element.closest('div.left-nav-filter');
+                  var sideBarWrapper = sideBar.find('div#sidebar-wrapper');
+                  // Toggle icon from up to down
+                  sideBarWrapper.toggleClass('active');
+
+
+              };
+          }
+      };
+    };
     angular
         .module('cs5331')
         // .directive('wordCloud', ["$window", "mostFrequentTermsService", wordCloud])
         .directive('wordCloud', ["$window", wordCloud])
+        .directive('leftSideBar', [leftSideBar])
 })(window.angular);
