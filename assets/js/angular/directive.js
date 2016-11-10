@@ -1,6 +1,6 @@
 (function (angular) {
     'use strict';
-    function wordCloud($window) {//, mostFrequentTermsService
+    function wordCloud($window, termService) {//, mostFrequentTermsService
         return {
             restrict: "EA",
             scope: false,
@@ -15,9 +15,9 @@
 
                 var frequencyList;
 
-                // mostFrequentTermsService.get(function (data) {
-                //     frequencyList = data;
-                // });
+                termService.getData().then(function (data) {
+                    scope.termData = data;
+                });
 
                 frequencyList = [{
                     "count": 1103,
@@ -263,27 +263,26 @@
             }
         };
     };
-    function leftSideBar(){
-      return {
-          restrict: 'E',
-          replace:true,
-          templateUrl: 'views/leftnavfilter.html',
-          controller: function ($scope, $element) {
-              // Function for collapse ibox
-              $scope.showhide = function () {
-                  var sideBar = $element.closest('div.left-nav-filter');
-                  var sideBarWrapper = sideBar.find('div#sidebar-wrapper');
-                  // Toggle icon from up to down
-                  sideBarWrapper.toggleClass('active');
+    function leftSideBar() {
+        return {
+            restrict: 'E',
+            replace: true,
+            templateUrl: 'views/leftnavfilter.html',
+            controller: function ($scope, $element) {
+                // Function for collapse ibox
+                $scope.showhide = function () {
+                    var sideBar = $element.closest('div.left-nav-filter');
+                    var sideBarWrapper = sideBar.find('div#sidebar-wrapper');
+                    // Toggle icon from up to down
+                    sideBarWrapper.toggleClass('active');
 
 
-              };
-          }
-      };
+                };
+            }
+        };
     };
     angular
         .module('cs5331')
-        // .directive('wordCloud', ["$window", "mostFrequentTermsService", wordCloud])
-        .directive('wordCloud', ["$window", wordCloud])
+        .directive('wordCloud', ["$window", "termService", wordCloud])
         .directive('leftSideBar', [leftSideBar])
 })(window.angular);

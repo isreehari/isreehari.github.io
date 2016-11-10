@@ -3,5 +3,5 @@
  */
 (function (angular) {
     'use strict';
-    var cs5331 = angular.module('cs5331', ['ui.bootstrap', 'ui-rangeSlider', 'datamaps', 'nvd3']);//, "ngResource"
+    var cs5331 = angular.module('cs5331', ['ui.bootstrap', 'ui-rangeSlider', 'datamaps', 'nvd3']);
 })(window.angular);

@@ -7,13 +7,33 @@
     /* Configuration for intercepting the http calls */
     function customconfig($httpProvider) { };
 
-    // /* Local json data service */
-    // function mostFrequentTermsService($resource) {
-    //     return $resource("/data/mostfrequentterms.json");
-    // };
+    /* Local json data service */
+    function termService($q, $http) {
+        var _this = this;
+
+        this.getData = function () {
+            return $http({
+                url: "/data/wikinews.json"
+            }).then(function (returnedData) {
+                return returnedData.data;
+            });
+
+
+            // $http.get("/data/wikinews.json")
+            //     .success(function (data) {
+            //         angular.extend(_this, data);
+            //         defer.resolve;
+            //     })
+            //     .error(function () {
+            //         defer.reject("File not found");
+            //     });
+
+            // return defer.promise;
+        };
+    };
 
     angular
-        .module('cs5331')//, ["ngResource"]
-        .config(['$httpProvider', customconfig]);
-    // .factory("mostFrequentTermsService", ["$resource", mostFrequentTermsService]);
+        .module('cs5331')
+        .config(['$httpProvider', customconfig])
+        .service("termService", ["$q", "$http", termService]);
 })(window.angular);
