@@ -15,7 +15,7 @@
         wordFrequency.getWordFrequency().then(function (returnedData) {
           vm.wikinewsData = returnedData;
           console.log("******************************************");
-          console.log(vm.wikinewsData["10 downing"]);
+          console.log(vm.wikinewsData);
           console.log("******************************************");
         });
 

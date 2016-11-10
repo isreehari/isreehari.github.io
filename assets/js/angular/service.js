@@ -31,6 +31,7 @@
       var sourceList = {};
       var numSource = {};
       var maxCount = {}; // contain the max frequency for 4 categories
+      var topTerms = {};
 
       var terms = new Object();
       var termMaxMax = 1;
@@ -38,8 +39,11 @@
 
       var minYear = 2006;
       var maxYear = 2015;
+      var numMonth = 12*(maxYear-minYear);
       var list = null;
       var termMaxMax;
+      var searchTerm ="";
+      var numberInputTerms = 10;
 
       angular.forEach(returnedData,function(data,key){
             data.date = new Date(data.time);
@@ -176,13 +180,153 @@
 
       }); // end of forEach
 
+      topTerms = getRelationships(returnedData,searchTerm,minYear,maxYear,terms,numberInputTerms,numMonth,maximumTerms);
 
-      return terms;
+      return topTerms;
 
 
 
     }
-    function getLeastFrequencyWord(){};
+    function getRelationships(returnedData,searchTerm,minYear,maxYear,terms,numberInputTerms,numMonth,maximumTerms){
+      var data2 = {};
+      var selected = {};
+      var removeList = {};
+      var termArray = [];
+      var element = {};
+      var maxNet = 0;
+      var maxMonth = -1;
+      var previous = 0;
+      var net;
+      var numNode;
+      var numNode2;
+      var relationship ={};
+      var relationshipMaxMax =0;
+      var selectedTerms = {};
+
+      data2 = returnedData.filter(function(data,index){
+                                        if(!searchTerm || searchTerm==""){
+                                          return data;
+                                        }
+                                        else if(data[searchTerm]) {
+                                          return data;
+                                        }
+                                      });
+      if(searchTerm && searchTerm !=""){
+        angular.forEach(data2,function(data2Val,data2Key){
+              for(var term1 in data2Val){
+                 if(!selected[term1])
+                  {
+                      selected[term1] = {};
+                  }
+                  else {
+                        if(!selected[term1].isSelected)
+                        {
+                            selected[term1].isSelected = 1;
+                        }
+                        else {
+                             selected[term1].isSelected++;
+                        }
+                  }
+              }
+        });
+      }
+      for(var att in terms){
+        element = {};
+
+        element.term = att;
+        if(removeList[element.term] || (searchTerm && searchTerm !="" & !selected[element.term]))
+            continue;
+        maxNet = 0;
+        maxMonth = -1;
+        for(var m=1; m<numMonth;m++){
+          if(terms[att][m]){
+            previous = 0;
+              if(terms[att][m-1])
+                  previous = terms[att][m-1];
+              net = (terms[att][m]+1)/(previous+1);
+
+              if(net > maxNet){
+                maxNet = net;
+                maxMonth = m;
+              }
+          }
+        }
+        element.max = maxNet;
+        element.maxMonth = maxMonth;
+        element.category = terms[att].category;
+        if(element.term == searchTerm)
+        {
+          element.max = 10000;
+          element.isSearchTerm = 1;
+        }
+        else if(searchTerm && searchTerm != "" && selected[element.term] && selected[element.term].isSelected) {
+            element.max = 5000 + selected[element.term].isSelected;
+        }
+
+        termArray.push(element);
+      } // end of att in terms for loop
+      termArray.sort(function (a, b) {
+                   if (a.max < b.max) {
+                     return 1;
+                   }
+                   if (a.max > b.max) {
+                     return -1;
+                   }
+                   return 0;
+         });
+      numberInputTerms = termArray.length;
+      // Compute relationship **********************************************************
+      numNode = Math.min(10, termArray.length);
+      numNode2 = Math.min(numNode*5, termArray.length);
+
+      for (var i=0; i<numNode2;i++){
+            selectedTerms[termArray[i].term] = termArray[i].max;
+          //  if(data2.allTerms)
+      }
+
+      console.log(data2);
+
+
+
+      data2.forEach(function(d) {
+            var year = d.date.getFullYear();
+            if (year>=minYear && year<=maxYear){
+                var m = d.month;
+                for (var term1 in d.allTerms) {
+                    if (selectedTerms[term1.trim()]){   // if the term is in the selected 100 terms
+                        for (var term2 in d.allTerms) {
+                            if (selectedTerms[term2.trim()]){   // if the term is in the selected 100 terms
+                                if (!relationship[term1+"__"+term2]){
+                                    relationship[term1+"__"+term2] = new Object();
+                                    relationship[term1+"__"+term2].max = 1;
+                                    relationship[term1+"__"+term2].maxMonth =m;
+                                }
+                                if (!relationship[term1+"__"+term2][m])
+                                    relationship[term1+"__"+term2][m] = 1;
+                                else{
+                                    relationship[term1+"__"+term2][m]++;
+                                    if (relationship[term1+"__"+term2][m]>relationship[term1+"__"+term2].max){
+                                        relationship[term1+"__"+term2].max = relationship[term1+"__"+term2][m];
+                                        relationship[term1+"__"+term2].maxMonth =m;
+
+                                        if (relationship[term1+"__"+term2].max>relationshipMaxMax) // max over time
+                                            relationshipMaxMax = relationship[term1+"__"+term2].max;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+      return {termArray:termArray,relationship:relationship};
+
+    };
+
+
+
+    function getLeastFrequencyWord(terms,maximumTerms){};
 
     angular
         .module('cs5331')//, ["ngResource"]
