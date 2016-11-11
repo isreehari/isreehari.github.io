@@ -11,10 +11,10 @@
         vm.top50Words = [];
         vm.filter = {
           range: {
-						minYear: 2006,
+						minYear: 2004,
 						maxYear: 2015
 					},
-          startYear: 2006,
+          startYear: 2004,
           endYear: 2015
         };
         vm.wordFrequencyGrapData = [];
@@ -28,20 +28,36 @@
           vm.top50Words = [];
           wordFrequency.getWordFrequency(vm.filter,vm.selectedFile).then(function (returnedData) {
             vm.wikinewsData = returnedData;
-            console.log("******************************************");
-            console.log(vm.wikinewsData.topTerms);
-            console.log("******************************************");
-
             angular.forEach(vm.wikinewsData.topTerms,function(termVal, termKey){
                 vm.top50Words.push(termKey);
             });
-
           });
+        };
+        vm.resetWordFrequency = function(){
+          vm.top50Words = [];
+          vm.wikinewsData = [];
         };
         // word cloud click function
         vm.myOnClickFunction = function(element){
              var selectedTerm = element.text;
-             console.log(vm.wikinewsData.terms[selectedTerm]);
+             var month = 0;
+             var jsObj = null;
+             var listMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov"]
+
+             for(var tempYear=vm.filter.startYear; tempYear<=vm.filter.endYear; tempYear++)
+             {
+               for(var tempMonth=0;tempMonth<12;tempMonth++)
+               {
+                    month = 12 * (tempYear - vm.filter.startYear) + tempMonth;
+                    if(vm.wikinewsData.terms[selectedTerm].hasOwnProperty(month))
+                    {
+                      jsObj = listMonths[tempMonth] + ' ' + tempYear;
+                      vm.wordFrequencyGrapData.push({date:parseDate(jsObj),val:vm.wikinewsData.terms[selectedTerm][month]});
+                    }
+               }
+             }
+
+             console.log(vm.wordFrequencyGrapData);
          }
         vm.flotGraphWordFrequency = function(){
 
