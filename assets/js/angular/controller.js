@@ -7,10 +7,6 @@
     'use strict';
     function MainController($scope,wordFrequency) {
         var vm = this;
-        vm.leftNavFilter = false;
-        vm.leftNavFilterShowhide = function(){
-          vm.leftNavFilter = !vm.leftNavFilter;
-        };
         vm.wikinewsData = [];
         vm.top50Words = [];
         vm.filter = {
@@ -21,6 +17,8 @@
           startYear: 2006,
           endYear: 2015
         };
+        vm.wordFrequencyGrapData = [];
+        // get the word frequency from service
         vm.getWordFrequency = function(){
           vm.top50Words = [];
           wordFrequency.getWordFrequency(vm.filter).then(function (returnedData) {
@@ -35,9 +33,16 @@
 
           });
         };
+        // word cloud click function
         vm.myOnClickFunction = function(element){
-           console.log("click",element);
-       }
+             var selectedTerm = element.text;
+             console.log(vm.wikinewsData.terms[selectedTerm]);
+         }
+
+        vm.flotGraphWordFrequency = function(){
+
+        };
+
 
     };
 

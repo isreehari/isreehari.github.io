@@ -9,7 +9,7 @@
     function wordFrequency($http) {
         var wordFrequency = {};
         wordFrequency.getWordFrequency = function(filter) {
-            return $http.get("data/huffington.json")
+            return $http.get("data/wikinews.json")
                 .then(function(returnedData) {
                     var returnObj = calWordFrequency(returnedData.data, filter);
                     return returnObj;
@@ -35,7 +35,7 @@
         var maxYear = filter.endYear;
         var numMonth = 12 * (maxYear - minYear);
         var list = null;
-        var termMaxMax;
+        var termsMaxMax;
         var searchTerm = "";
         var numberInputTerms = 10;
 
@@ -67,7 +67,7 @@
                             terms[personObj][data.month] = 1;
                         else {
                             terms[personObj][data.month]++;
-                            if (terms[personObj][data.month] > terms[personObj][data.month]) {
+                            if (terms[personObj][data.month] > terms[personObj].max) {
                                 terms[personObj].max = terms[personObj][data.month];
                                 terms[personObj].maxMonth = data.month;
                                 if (terms[personObj].max > termsMaxMax)
@@ -94,7 +94,7 @@
                             terms[locationObj][data.month] = 1;
                         else {
                             terms[locationObj][data.month]++;
-                            if (terms[locationObj][data.month] > terms[locationObj][data.month]) {
+                            if (terms[locationObj][data.month] > terms[locationObj].max) {
                                 terms[locationObj].max = terms[locationObj][data.month];
                                 terms[locationObj].maxMonth = data.month;
                                 if (terms[locationObj].max > termsMaxMax)
@@ -121,7 +121,7 @@
                             terms[organizationObj][data.month] = 1;
                         else {
                             terms[organizationObj][data.month]++;
-                            if (terms[organizationObj][data.month] > terms[organizationObj][data.month]) {
+                            if (terms[organizationObj][data.month] > terms[organizationObj].max) {
                                 terms[organizationObj].max = terms[organizationObj][data.month];
                                 terms[organizationObj].maxMonth = data.month;
                                 if (terms[organizationObj].max > termsMaxMax)
@@ -148,7 +148,7 @@
                             terms[miscellaneousObj][data.month] = 1;
                         else {
                             terms[miscellaneousObj][data.month]++;
-                            if (terms[miscellaneousObj][data.month] > terms[miscellaneousObj][data.month]) {
+                            if (terms[miscellaneousObj][data.month] > terms[miscellaneousObj].max) {
                                 terms[miscellaneousObj].max = terms[miscellaneousObj][data.month];
                                 terms[miscellaneousObj].maxMonth = data.month;
                                 if (terms[miscellaneousObj].max > termsMaxMax)
@@ -184,6 +184,7 @@
         var relationship = {};
         var relationshipMaxMax = 0;
         var selectedTerms = {};
+        var selectedTermsObj = {};
 
         data2 = returnedData.filter(function(data, index) {
             if (!searchTerm || searchTerm == "") {
@@ -260,6 +261,8 @@
 
         for (var i = 0; i < numNode2; i++) {
             selectedTerms[termArray[i].term] = termArray[i].max;
+            selectedTermsObj[termArray[i].term] = termArray[i];
+
         }
 
         data2.forEach(function(d) {
@@ -296,7 +299,7 @@
             }
         });
 
-        return { termObject: returnedData, termArray: termArray, relationship: relationship, topTerms: selectedTerms };
+        return { termObject: returnedData, terms:terms, termArray: termArray, relationship: relationship, topTerms: selectedTerms,topTermsObj:selectedTermsObj };
 
     };
     function getLeastFrequencyWord(terms, maximumTerms) { };
