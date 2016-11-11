@@ -229,10 +229,14 @@
                 d3.layout.cloud()
                     .size([1200, 400])
                     .words(frequencyList)
-                    .rotate(0)
+                    .font("Impact")
                     .fontSize(function (d) {
                         return d.count;
                     })
+                    .rotate(function () {
+                        return (~~(Math.random() * 2)) * 90;
+                    })
+                    .padding(8)
                     .on("end", draw)
                     .start();
 
@@ -244,6 +248,8 @@
                         .selectAll("text")
                         .data(words)
                         .enter().append("text")
+                        .style("font-family", "Impact")
+                        .style("padding", "5")
                         .style("font-size", function (d) {
                             return d.count / 20 + "px";
                         })
