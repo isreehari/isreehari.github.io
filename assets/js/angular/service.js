@@ -2,18 +2,24 @@
  * Created by sinukoll on 10/23/2016.
  * services
  */
-(function(angular) {
+(function (angular) {
     'use strict';
     /* Configuration for intercepting the http calls */
     function customconfig($httpProvider) { };
     function wordFrequency($http) {
         var wordFrequency = {};
+<<<<<<< HEAD
         wordFrequency.getWordFrequency = function(filter) {
             return $http.get("data/wikinews.json")
                 .then(function(returnedData) {
+=======
+        wordFrequency.getWordFrequency = function (filter, filePath) {
+            return $http.get(filePath)
+                .then(function (returnedData) {
+>>>>>>> jsorbo
                     var returnObj = calWordFrequency(returnedData.data, filter);
                     return returnObj;
-                }).catch(function(response) {
+                }).catch(function (response) {
                     return response;
                 });
         };
@@ -39,7 +45,7 @@
         var searchTerm = "";
         var numberInputTerms = 10;
 
-        angular.forEach(returnedData, function(data, key) {
+        angular.forEach(returnedData, function (data, key) {
             data.date = new Date(data.time);
             data.year = data.date.getFullYear();
             data.month = 12 * (data.year - minYear) + data.date.getMonth();
@@ -52,7 +58,7 @@
                     sourceList[data.source]++;
             } // end of source list
             if (data.person != "") {
-                angular.forEach(data.person, function(personObj, personKey) {
+                angular.forEach(data.person, function (personObj, personKey) {
                     if (personObj) {
                         personObj = personObj.trim();
                         if (!terms[personObj]) {
@@ -79,7 +85,7 @@
                 });
             }
             if (data.location != "" && data.location != 1) {
-                angular.forEach(data.location, function(locationObj, locationKey) {
+                angular.forEach(data.location, function (locationObj, locationKey) {
                     if (locationObj) {
                         locationObj = locationObj.trim();
                         if (!terms[locationObj]) {
@@ -106,7 +112,7 @@
                 });
             }
             if (data.organization != "" && data.organization != 1) {
-                angular.forEach(data.organization, function(organizationObj, organizationKey) {
+                angular.forEach(data.organization, function (organizationObj, organizationKey) {
                     if (organizationObj) {
                         organizationObj = organizationObj.trim();
                         if (!terms[organizationObj]) {
@@ -133,7 +139,7 @@
                 });
             }
             if (data.miscellaneous != "" && data.miscellaneous != 1) {
-                angular.forEach(data.miscellaneous, function(miscellaneousObj, miscellaneousKey) {
+                angular.forEach(data.miscellaneous, function (miscellaneousObj, miscellaneousKey) {
                     if (miscellaneousObj) {
                         miscellaneousObj = miscellaneousObj.trim();
                         if (!terms[miscellaneousObj]) {
@@ -186,7 +192,7 @@
         var selectedTerms = {};
         var selectedTermsObj = {};
 
-        data2 = returnedData.filter(function(data, index) {
+        data2 = returnedData.filter(function (data, index) {
             if (!searchTerm || searchTerm == "") {
                 return data;
             }
@@ -195,7 +201,7 @@
             }
         });
         if (searchTerm && searchTerm != "") {
-            angular.forEach(data2, function(data2Val, data2Key) {
+            angular.forEach(data2, function (data2Val, data2Key) {
                 for (var term1 in data2Val) {
                     if (!selected[term1]) {
                         selected[term1] = {};
@@ -245,7 +251,7 @@
 
             termArray.push(element);
         } // end of att in terms for loop
-        termArray.sort(function(a, b) {
+        termArray.sort(function (a, b) {
             if (a.max < b.max) {
                 return 1;
             }
@@ -265,14 +271,14 @@
 
         }
 
-        data2.forEach(function(d) {
+        data2.forEach(function (d) {
             var year = d.date.getFullYear();
             if (year >= minYear && year <= maxYear) {
                 var m = d.month;
-                angular.forEach(d.allTerms, function(term1, term1Key) {
+                angular.forEach(d.allTerms, function (term1, term1Key) {
                     term1 = term1.trim();
                     if (selectedTerms[term1.trim()]) {   // if the term is in the selected 100 terms
-                        angular.forEach(d.allTerms, function(term2, term2Key) {
+                        angular.forEach(d.allTerms, function (term2, term2Key) {
                             term2 = term2.trim();
                             if (selectedTerms[term2.trim()]) {   // if the term is in the selected 100 terms
                                 if (!relationship[term1 + "__" + term2]) {
@@ -305,11 +311,11 @@
     function getLeastFrequencyWord(terms, maximumTerms) { };
     function conceptMAP($http) {
         var conceptMapData = {};
-        conceptMapData.getWordFrequency = function(filter) {
-            return $http.get("data/conept-map.json")
-                .then(function(returnedData) {
+        conceptMapData.getWordFrequency = function (filter) {
+            return $http.get("data/concept-map.json")
+                .then(function (returnedData) {
                     return returnedData.data;
-                }).catch(function(response) {
+                }).catch(function (response) {
                     return response;
                 });
         };
@@ -318,9 +324,8 @@
     };
 
     angular
-        .module('cs5331')//, ["ngResource"]
+        .module('cs5331')
         .factory('wordFrequency', ['$http', wordFrequency])
         .factory('conceptMAP', ['$http', conceptMAP])
         .config(['$httpProvider', customconfig]);
-    // .factory("mostFrequentTermsService", ["$resource", mostFrequentTermsService]);
 })(window.angular);
