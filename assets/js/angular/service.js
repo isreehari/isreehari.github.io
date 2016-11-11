@@ -314,14 +314,25 @@
       return {termObject:returnedData,termArray:termArray,relationship:relationship,topTerms:selectedTerms};
 
     };
-
-
-
     function getLeastFrequencyWord(terms,maximumTerms){};
+    function conceptMAP($http){
+      var conceptMapData = {};
+      conceptMapData.getWordFrequency = function(filter){
+        return $http.get("data/conept-map.json")
+                    .then(function(returnedData){
+                        return returnedData.data;
+                    }).catch(function(response) {
+                        return response;
+                    });
+      };
+
+      return conceptMapData;
+    };
 
     angular
         .module('cs5331')//, ["ngResource"]
         .factory('wordFrequency',['$http',wordFrequency])
+        .factory('conceptMAP',['$http',conceptMAP])
         .config(['$httpProvider', customconfig]);
     // .factory("mostFrequentTermsService", ["$resource", mostFrequentTermsService]);
 })(window.angular);
