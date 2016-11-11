@@ -50,7 +50,7 @@
 							<a href="#frequency">Frequency</a>
 						</li>
 						<li class="page-scroll">
-							<a href="#relationshipes">Relationshipes</a>
+							<a href="#relationshipes">Relationships</a>
 						</li>
 						<li class="page-scroll">
 							<a href="#location">Location</a>
@@ -85,11 +85,11 @@
 							</div>
 							<div class="panel panel-primary" id="relationshipes">
 								<div class="panel-heading">
-									<div class="panel-title">Word Relationshipes Graph</div>
+									<div class="panel-title">Word Relationships Graph</div>
 								</div>
 								<div class="panel-body">
-											<div id="graph"></div>
-											<div id="graph-info" style="display:none;"></div>
+									<div id="graph"></div>
+									<div id="graph-info" style="display:none;"></div>
 								</div>
 								<div class="panel-footer">
 								</div>
@@ -117,18 +117,23 @@
 								<div class="col-lg-12 col-md-12">
 
 									<form class="form-horizontal">
-											<div class="form-group">
-									    <label for="inputEmail3" class="col-sm-2 control-label">Year : </label>
-									    <div class="col-sm-10">
-									      <div range-slider min="mainCtr.filter.range.minYear" max="mainCtr.filter.range.maxYear" show-values="true" model-min="mainCtr.filter.startYear" model-max="mainCtr.filter.endYear" step="1"></div>
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Year</label>
+											<div class="col-sm-10">
+												<div range-slider min="mainCtr.filter.range.minYear" max="mainCtr.filter.range.maxYear" show-values="true" model-min="mainCtr.filter.startYear"
+													model-max="mainCtr.filter.endYear" step="1"></div>
 											</div>
-									  </div>
-									  <div class="form-group">
-									    <div class="col-sm-12">
-									      <button type="button" data-ng-click="mainCtr.getWordFrequency()" class="btn btn-default pull-right">Get Data</button>
-									    </div>
-									  </div>
-								  </form>
+										</div>
+										<div class="form-group">
+											<label for="inputEmail3" class="col-sm-2 control-label">Source</label>
+											<div class="col-sm-4">
+												<select class="btn btn-default pull-right" ng-model="selectedFile" ng-options="t.filePath as t.name for t in files"></select>
+											</div>
+											<div class="col-sm-6">
+												<button type="button" data-ng-click="mainCtr.getWordFrequency()" class="btn btn-default pull-right">Get Data</button>
+											</div>
+										</div>
+									</form>
 									<h4 data-ng-show="mainCtr.top50Words.length>0">World cloud:</h4>
 									<wordcloud width="500" height="500" words="mainCtr.top50Words" data-ng-if="mainCtr.top50Words.length>0" on-click="mainCtr.myOnClickFunction(element)"></wordcloud>
 								</div>
