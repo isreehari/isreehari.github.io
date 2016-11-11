@@ -13,24 +13,28 @@
         };
         vm.wikinewsData = [];
         vm.top50Words = [];
-      //  vm.top50WordsR = false;
-        wordFrequency.getWordFrequency().then(function (returnedData) {
-          vm.wikinewsData = returnedData;
-          console.log("******************************************");
-          console.log(vm.wikinewsData.topTerms);
-          console.log("******************************************");
+        vm.filter = {
+          range: {
+						minYear: 2006,
+						maxYear: 2015
+					},
+          startYear: 2006,
+          endYear: 2015
+        };
+        vm.getWordFrequency = function(){
+          vm.top50Words = [];
+          wordFrequency.getWordFrequency(vm.filter).then(function (returnedData) {
+            vm.wikinewsData = returnedData;
+            console.log("******************************************");
+            console.log(vm.wikinewsData.topTerms);
+            console.log("******************************************");
 
-          angular.forEach(vm.wikinewsData.topTerms,function(termVal, termKey){
-              vm.top50Words.push(termKey);
+            angular.forEach(vm.wikinewsData.topTerms,function(termVal, termKey){
+                vm.top50Words.push(termKey);
+            });
+
           });
-
-          //vm.top50Words = ["Hallo","Test","Lorem","Ipsum","Lorem","ipsum","dolor","sit","amet,","consetetur","sadipscing","elitr,","sed","diam","nonumy","eirmod","tempor","invidunt","ut","labore","et","dolore","magna","aliquyam","erat,","sed","diam"];
-
-          //vm.top50WordsR = true;
-        });
-
-
-
+        };
         vm.myOnClickFunction = function(element){
            console.log("click",element);
        }

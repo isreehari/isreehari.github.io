@@ -6,18 +6,12 @@
     'use strict';
     /* Configuration for intercepting the http calls */
     function customconfig($httpProvider) { };
-
-    // /* Local json data service */
-    // function mostFrequentTermsService($resource) {
-    //     return $resource("/data/mostfrequentterms.json");
-    // };
-
     function wordFrequency($http){
       var wordFrequency = {};
-      wordFrequency.getWordFrequency = function(){
+      wordFrequency.getWordFrequency = function(filter){
         return $http.get("data/wikinews.json")
                     .then(function(returnedData){
-                        var returnObj = calWordFrequency(returnedData.data);
+                        var returnObj = calWordFrequency(returnedData.data,filter);
                         return returnObj;
                     }).catch(function(response) {
                         return response;
@@ -27,7 +21,7 @@
       return wordFrequency;
 
     };
-    function calWordFrequency(returnedData){
+    function calWordFrequency(returnedData,filter){
       var sourceList = {};
       var numSource = {};
       var maxCount = {}; // contain the max frequency for 4 categories
@@ -37,8 +31,8 @@
       var termMaxMax = 1;
       var maximumTerms = 50;
 
-      var minYear = 2006;
-      var maxYear = 2015;
+      var minYear = filter.startYear;
+      var maxYear = filter.endYear;
       var numMonth = 12*(maxYear-minYear);
       var list = null;
       var termMaxMax;
