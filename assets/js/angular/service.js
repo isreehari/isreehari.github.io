@@ -281,20 +281,17 @@
 
       for (var i=0; i<numNode2;i++){
             selectedTerms[termArray[i].term] = termArray[i].max;
-          //  if(data2.allTerms)
       }
-
-      console.log(data2);
-
-
 
       data2.forEach(function(d) {
             var year = d.date.getFullYear();
             if (year>=minYear && year<=maxYear){
                 var m = d.month;
-                for (var term1 in d.allTerms) {
+                  angular.forEach(d.allTerms,function(term1,term1Key){
+                    term1 = term1.trim();
                     if (selectedTerms[term1.trim()]){   // if the term is in the selected 100 terms
-                        for (var term2 in d.allTerms) {
+                          angular.forEach(d.allTerms,function(term2,term2Key){
+                            term2 = term2.trim();
                             if (selectedTerms[term2.trim()]){   // if the term is in the selected 100 terms
                                 if (!relationship[term1+"__"+term2]){
                                     relationship[term1+"__"+term2] = new Object();
@@ -314,13 +311,13 @@
                                     }
                                 }
                             }
-                        }
+                          });
                     }
-                }
+                  });
             }
         });
 
-      return {termArray:termArray,relationship:relationship};
+      return {termObject:returnedData,termArray:termArray,relationship:relationship,topTerms:selectedTerms};
 
     };
 
