@@ -83,18 +83,18 @@ Find the 50 most frequent terms and write them to a JSON file.
 def convertToJson(toPathAllData, toPathMostFreq, toPathMonthlyFreqs, fromPath, linesToSkip=0):
     data = parseFile(fromPath, linesToSkip)
     with open(toPathAllData, "w") as out:
-        json.dump(data, out, sort_keys=True, indent=4, ensure_ascii=False)
+        json.dump(data, out, sort_keys=True, separators=(',',':'), ensure_ascii=False)
 
-    mostFreq = mostFrequent(data, 50)
+    # mostFreq = mostFrequent(data, 50)
 
-    with open(toPathMostFreq, "w") as out:
-        json.dump(mostFreq, out, sort_keys=True, indent=4, ensure_ascii=False)
+    # with open(toPathMostFreq, "w") as out:
+    #     json.dump(mostFreq, out, sort_keys=True, indent=4, ensure_ascii=False)
 
-    termsByDate = termDates(data, mostFreq)
-    monthlyFreqs = monthlyFrequencies(termsByDate)
+    # termsByDate = termDates(data, mostFreq)
+    # monthlyFreqs = monthlyFrequencies(termsByDate)
 
-    with open(toPathMonthlyFreqs, "w") as out:
-        json.dump(monthlyFreqs, out, sort_keys=True, indent=4, ensure_ascii=False)
+    # with open(toPathMonthlyFreqs, "w") as out:
+    #     json.dump(monthlyFreqs, out, sort_keys=True, indent=4, ensure_ascii=False)
 
 if __name__ == '__main__':
-    convertToJson("../wikinews.json", "../mostfrequentterms.json", "../monthlyfrequencies.json", "../wikinews.tsv", 1)
+    convertToJson("../huffington.json", "../mostfrequentterms.json", "../monthlyfrequencies.json", "../huffington.tsv", 1)
