@@ -1,4 +1,25 @@
-# TTU CS5331 Project 2 Visualization & Visual Analytics - Fall 2016
-- Project 2 is a group (3 or 4 students) project (assigned here). 
-- A leader is also selected by the instructor. In this project, students will work on the texts extracted from news/blogs and classified into 4 categories: people names, locations, organizations, and miscellaneous. Each entry also contains the published time/date of the article/blog. Students are provided 2 datasets: The Wikinews data (roughly 3.3M) contains 11,267 articles and the Huffington Post data (roughly 29.4M) contains 75,293 political blogs. 
-- Students are required to demonstrate their web applications on both datasets.
+# TTU CS5331 Project 2: Text and Geospatial Visualization
+
+## Demo
+
+Click the screenshot to view the demo.
+
+[![ScreenShot](https://raw.githubusercontent.com/jsorbo/labor-data-vis/master/media/p1.jeff.sorbo.png)](https://youtu.be/bLNU7d88GBE)
+
+## Link to application
+
+[Click here.](https://jsorbo.github.io)
+
+## Visualization features
+
+1. Adjust the slider to select the date range.
+2. Select the data source from the dropdown.
+3. Click **Get Data** to generate the word cloud.
+4. Click a term in the word cloud to show its frequency in the time series chart.
+5. 
+
+## Data description
+
+### Blog post data
+
+### Preprocessing
