@@ -72,3 +72,21 @@ Here's a sample of one of the json files:
         "time": "2004-11-17 00:00:00"
     }, 
 ```
+
+## Team member contributions
+
+### Hari Inukollu
+
+1. AngularJS application framework
+2. Word cloud final version
+3. Time series
+4. Word relationship graph
+5. Term map
+
+### Jeff Sorbo
+
+1. Data Preprocessing
+2. Initial work on word cloud directive
+3. Initial work on term frequency service
+4. Data source selection
+5. Documentation and demo video
