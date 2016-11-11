@@ -31,6 +31,11 @@
     "angular-rangeslider": "^0.0.14",
     "nvd3": "^1.8.4",
     "jquery-easing": "*",
-    "angular-nvd3": "^1.0.9"
+    "angular-nvd3": "^1.0.9",
+    "d3-cloud-ng": "^0.9.6"
+  },
+  "devDependencies": {
+    "d3-cloud": "^1.2.2",
+    "angular-resource": "^1.5.8"
   }
 }

@@ -1,11 +1,24 @@
-/**
- * Created by sinukoll on 10/23/2016.
- */
+(function (angular) {
+    'use strict';    
+    function leftSideBar() {
+        return {
+            restrict: 'E',
+            replace: true,
+            templateUrl: 'views/leftnavfilter.html',
+            controller: function ($scope, $element) {
+                // Function for collapse ibox
+                $scope.showhide = function () {
+                    var sideBar = $element.closest('div.left-nav-filter');
+                    var sideBarWrapper = sideBar.find('div#sidebar-wrapper');
+                    // Toggle icon from up to down
+                    sideBarWrapper.toggleClass('active');
 
-(function(angular) {
-    'use strict';
-    function MainDirective(){};
+
+                };
+            }
+        };
+    };
     angular
         .module('cs5331')
-        .directive('mainDirective',[MainDirective])
-    })(window.angular);
+        .directive('leftSideBar', [leftSideBar])
+})(window.angular);
