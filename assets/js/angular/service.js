@@ -8,24 +8,16 @@
     function customconfig($httpProvider) { };
     function wordFrequency($http) {
         var wordFrequency = {};
-<<<<<<< HEAD
-        wordFrequency.getWordFrequency = function(filter) {
-            return $http.get("data/wikinews.json")
-                .then(function(returnedData) {
-=======
-        wordFrequency.getWordFrequency = function (filter, filePath) {
-            return $http.get(filePath)
+        wordFrequency.getWordFrequency = function (filter, selectedFile) {
+            return $http.get(selectedFile)
                 .then(function (returnedData) {
->>>>>>> jsorbo
                     var returnObj = calWordFrequency(returnedData.data, filter);
                     return returnObj;
                 }).catch(function (response) {
                     return response;
                 });
         };
-
         return wordFrequency;
-
     };
     function calWordFrequency(returnedData, filter) {
         var sourceList = {};
