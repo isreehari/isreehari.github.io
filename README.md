@@ -4,11 +4,11 @@
 
 Click the screenshot to view the demo.
 
-[![ScreenShot](https://raw.githubusercontent.com/jsorbo/labor-data-vis/master/media/p1.jeff.sorbo.png)](https://youtu.be/bLNU7d88GBE)
+[![ScreenShot](https://raw.githubusercontent.com/isreehari/ttucs5331p2/master/media/p2.inukollu.sorbo.png)](https://youtu.be/bLNU7d88GBE)
 
 ## Link to application
 
-[Click here.](https://jsorbo.github.io)
+[Click here.](https://isreehari.github.io)
 
 ## Visualization features
 
