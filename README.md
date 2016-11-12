@@ -4,11 +4,11 @@
 
 Click the screenshot to view the demo.
 
-[![ScreenShot](https://raw.githubusercontent.com/jsorbo/labor-data-vis/master/media/p1.jeff.sorbo.png)](https://youtu.be/bLNU7d88GBE)
+[![ScreenShot](https://raw.githubusercontent.com/isreehari/ttucs5331p2/master/media/p2.inukollu.sorbo.png)](https://youtu.be/bLNU7d88GBE)
 
 ## Link to application
 
-[Click here.](https://jsorbo.github.io)
+[Click here.](https://isreehari.github.io)
 
 ## Visualization features
 
@@ -72,3 +72,21 @@ Here's a sample of one of the json files:
         "time": "2004-11-17 00:00:00"
     }, 
 ```
+
+## Team member contributions
+
+### Hari Inukollu
+
+1. AngularJS application framework
+2. Word cloud final version
+3. Time series
+4. Word relationship graph
+5. Term map
+
+### Jeff Sorbo
+
+1. Data Preprocessing
+2. Initial work on word cloud directive
+3. Initial work on term frequency service
+4. Data source selection
+5. Documentation and demo video

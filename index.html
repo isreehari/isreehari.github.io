@@ -78,7 +78,8 @@
 									<div class="panel-title">Word Frequency Graph</div>
 								</div>
 								<div class="panel-body">
-									<brush-zoom val="mainCtr.wordFrequencyGrapData"> </brush-zoom>
+									<brush-zoom testing="mainCtr.wordFrequencyGrapData" data-ng-if="mainCtr.wordFrequencyGrapData.length>0"> </brush-zoom>
+									<div id="brushZoom"></div>
 								</div>
 								<div class="panel-footer">
 								</div>
@@ -143,7 +144,8 @@
 
 									</form>
 									<h4 data-ng-show="mainCtr.top50Words.length>0">World cloud:</h4>
-									<wordcloud width="500" height="500" words="mainCtr.top50Words" data-ng-if="mainCtr.top50Words.length>0" on-click="mainCtr.myOnClickFunction(element)"></wordcloud>
+
+									<wordcloud width="400" height="400" words="mainCtr.top50Words" data-ng-if="mainCtr.top50Words.length>0" on-click="mainCtr.myOnClickFunction(element)"></wordcloud>
 								</div>
 							</div>
 						</div>
@@ -194,7 +196,7 @@
 	<!-- Theme JavaScript -->
 	<script src="assets/js/freelancer.min.js"></script>
 
-	<script src="assets/bower_components/d3/d3.min.js"></script>	
+	<script src="assets/bower_components/d3/d3.js"></script>
 	<script src="assets/bower_components/topojson/topojson.min.js"></script>
 	<script src="assets/bower_components/datamaps/dist/datamaps.usa.min.js"></script>
 	<script src="assets/bower_components/angular-datamaps/dist/angular-datamaps.min.js"></script>

@@ -94,3 +94,37 @@ svg g text{
 }
 
 /* End Word cloud */
+
+
+/*word frequency count*/
+
+svg {
+  font: 10px sans-serif;
+}
+
+.area {
+  fill: lightgray;
+  clip-path: url(#clip);
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.brush .extent {
+  stroke: #fff;
+  fill-opacity: .125;
+  shape-rendering: crispEdges;
+  clip-path: url(#clip);
+}
+
+rect.pane {
+  cursor: move;
+  fill: none;
+  pointer-events: all;
+}
+
+/* end word frequency count*/

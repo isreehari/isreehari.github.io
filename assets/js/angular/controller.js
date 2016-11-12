@@ -42,7 +42,9 @@
              var selectedTerm = element.text;
              var month = 0;
              var jsObj = null;
-             var listMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov"]
+             var listMonths = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov"];
+
+             var parseDate = d3.time.format("%b %Y").parse;
 
              for(var tempYear=vm.filter.startYear; tempYear<=vm.filter.endYear; tempYear++)
              {
@@ -57,7 +59,11 @@
                }
              }
 
-             console.log(vm.wordFrequencyGrapData);
+             $scope.$apply(function () {
+               vm.wordFrequencyGrapData = vm.wordFrequencyGrapData;
+             });
+
+            // console.log(vm.wordFrequencyGrapData);
          }
         vm.flotGraphWordFrequency = function(){
 
