@@ -27,30 +27,30 @@
           return {
                   restrict: 'E',
                   scope: {
-                    val: '='
+                    testing: '='
                   },
                   link: function (scope, element, attrs) {
                         // set up initial svg object
 
-                        var margin = {top: 20, right: 20, bottom: 110, left: 40},
-                            margin2 = {top: 430, right: 20, bottom: 30, left: 40},
-                            width = +width - margin.left - margin.right,
-                            height = +height - margin.top - margin.bottom,
-                            height2 = +height - margin2.top - margin2.bottom;
-
-                            var svg = d3.select(element[0]).append("svg")
-                                .attr("width", width + margin.left + margin.right)
-                                .attr("height", height + margin.top + margin.bottom);
 
 
 
-                        scope.$watch('val', function (newVal, oldVal){
+                        var margin = {top: 10, right: 10, bottom: 100, left: 40},
+                            margin2 = {top: 430, right: 10, bottom: 20, left: 40},
+                            width = 960 - margin.left - margin.right,
+                            height = 500 - margin.top - margin.bottom,
+                            height2 = 500 - margin2.top - margin2.bottom;
 
-                          svg.selectAll('*').remove();
+                            var svg = d3.select("#brushZoom").append("svg")
+                                        .attr("width", width + margin.left + margin.right)
+                                        .attr("height", height + margin.top + margin.bottom);
 
-                          if (!newVal) {
-                                         return;
-                                       }
+
+                        scope.$watch('testing', function (newVal, oldVal){
+
+
+
+
 
                                        var parseDate = d3.time.format("%b %Y").parse;
 
@@ -71,13 +71,13 @@
                                            .interpolate("monotone")
                                            .x(function(d) { return x(d.date); })
                                            .y0(height)
-                                           .y1(function(d) { return y(d.price); });
+                                           .y1(function(d) { return y(d.val); });
 
                                        var area2 = d3.svg.area()
                                            .interpolate("monotone")
                                            .x(function(d) { return x2(d.date); })
                                            .y0(height2)
-                                           .y1(function(d) { return y2(d.price); });
+                                           .y1(function(d) { return y2(d.val); });
 
 
 
@@ -105,9 +105,19 @@
                                            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
                                            .call(zoom);
 
-                                       //d3.csv("sp500.csv", type, function(error, data) {
 
-                                         var data = newVal;
+
+
+
+                                        // console.log(data);
+
+
+
+                                      var data = newVal;
+
+                                         
+
+
                                          x.domain(d3.extent(data.map(function(d) { return d.date; })));
                                          y.domain([0, d3.max(data.map(function(d) { return d.val; }))]);
                                          x2.domain(x.domain());
@@ -146,7 +156,7 @@
                                            .selectAll("rect")
                                              .attr("y", -6)
                                              .attr("height", height2 + 7);
-                                      // });
+                                    //   });
 
                                        function brushed() {
                                          x.domain(brush.empty() ? x2.domain() : brush.extent());
@@ -166,7 +176,7 @@
 
                                        function type(d) {
                                          d.date = parseDate(d.date);
-                                         d.price = +d.price;
+                                         d.val = +d.val;
                                          return d;
                                        }
                         }); // end of watch
