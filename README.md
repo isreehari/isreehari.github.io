@@ -4,7 +4,8 @@
 
 Click the screenshot to view the demo.
 
-[![ScreenShot](https://raw.githubusercontent.com/isreehari/ttucs5331p2/master/media/p2.inukollu.sorbo.png)](https://youtu.be/bLNU7d88GBE)
+[![ScreenShot](https://github.com/isreehari/isreehari.github.io/blob/master/media/p2.inukollu.sorbo2.JPG)](https://youtu.be/bLNU7d88GBE)
+[![ScreenShot](https://github.com/isreehari/isreehari.github.io/blob/master/media/p2.inukollu.sorbo.jpg)](https://youtu.be/bLNU7d88GBE)
 
 ## Link to application
 
@@ -43,34 +44,34 @@ Here's a sample of one of the json files:
 ```json
     {
         "allTerms": [
-            "reid", 
-            "john reid", 
-            "england", 
-            "ireland", 
-            "choosing health", 
-            "national health service", 
-            "scottish", 
+            "reid",
+            "john reid",
+            "england",
+            "ireland",
+            "choosing health",
+            "national health service",
+            "scottish",
             "labour"
-        ], 
+        ],
         "location": [
-            "england", 
+            "england",
             "ireland"
-        ], 
+        ],
         "miscellaneous": [
-            "scottish", 
+            "scottish",
             "labour"
-        ], 
+        ],
         "organization": [
-            "choosing health", 
-            "national health service", 
-        ], 
+            "choosing health",
+            "national health service",
+        ],
         "person": [
-            "reid", 
+            "reid",
             "john reid"
-        ], 
-        "source": "wikinews", 
+        ],
+        "source": "wikinews",
         "time": "2004-11-17 00:00:00"
-    }, 
+    },
 ```
 
 ## Team member contributions
