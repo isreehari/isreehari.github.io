@@ -17,6 +17,52 @@
                     return response;
                 });
         };
+        wordFrequency.getRelationships = function (wikinewsRawData,top50Words) {
+          var wordsRelationShips  = [];
+          var wordsRelationShipsArray  = [];
+          var currentLine = null;
+          var currentList = [];
+              //  top50Words.forEach(function(selecteTerm){
+              var selecteTerm = "usa"
+                  wikinewsRawData.forEach(function(data){
+                      currentLine = data.person.join(" ") + "|" + data.location.join(" ") + "|" + data.organization.join(" ") + "|" + data.miscellaneous.join(" ");
+
+                      currentList =   currentList.concat(data.person);
+                      currentList =   currentList.concat(data.location);
+                      currentList =   currentList.concat(data.organization);
+                      currentList =   currentList.concat(data.miscellaneous);
+
+                      console.log(currentLine);
+
+                      if (!currentLine.includes(selecteTerm)) return;
+
+                      for (var i=0; i<currentList.length;i++){
+                  	    	var term = currentList[i];
+                          if (!wordsRelationShips[selecteTerm])
+                                wordsRelationShips[selecteTerm] = [];
+                  	    	if (!wordsRelationShips[selecteTerm][term])
+                  	    		    wordsRelationShips[selecteTerm][term] = 1;
+                  	    	else
+                  	    		wordsRelationShips[selecteTerm][term]++;
+                  	    }
+
+                  });
+              //  });
+
+                for(var data in wordsRelationShips){
+                  if (data != 'undefined')
+                  {
+                    wordsRelationShipsArray.push({ 'term': data, 'count': wordsRelationShips[data] });
+                  }
+                }
+
+                wordsRelationShipsArray = wordsRelationShipsArray.sort(function(a,b){ return b.count - a.count});
+                wordsRelationShipsArray = wordsRelationShipsArray.slice(0,50);
+
+                console.log(wordsRelationShipsArray.length);
+                return true;
+            };
+
         return wordFrequency;
     };
     function calWordFrequency(returnedData) {
@@ -161,7 +207,7 @@
 
         }); // end of forEach
         //topTerms = getRelationships(returnedData, searchTerm, minYear, maxYear, terms, numberInputTerms, numMonth, maximumTerms);
-        return terms;
+        return {rawData:returnedData,termsData:terms};
 
 
 
@@ -316,7 +362,7 @@
 
 
     angular
-        .module('cs5331')    
+        .module('cs5331')
         .factory('wordFrequency', ['$http', wordFrequency])
         .factory('conceptMAP', ['$http', conceptMAP])
         .config(['$httpProvider', customconfig]);

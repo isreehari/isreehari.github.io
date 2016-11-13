@@ -7,6 +7,7 @@
     'use strict';
     function MainController($scope,wordFrequency) {
         var vm = this;
+        vm.wikinewsRawData = null;
         vm.wikinewsData = [];
         vm.top50Words = [];
         vm.filter = {
@@ -95,17 +96,24 @@
             }
         };
         // get the word frequency from service
+
         vm.getWordFrequency = function(){
           wordFrequency.getWordFrequency(vm.selectedFile).then(function (returnedData) {
-            vm.wikinewsData = returnedData;
+            vm.wikinewsRawData = returnedData.rawData;
+            vm.wikinewsData = returnedData.termsData;
             vm.top50Words = vm.getTop50Words();
+            vm.getRelationships();
           });
         };
         vm.resetWordFrequency = function(){
           vm.top50Words = [];
           vm.wikinewsData = [];
+          vm.nvd3WordFrequencyGrap.data = [];
         };
         vm.getWordFrequency();
+        vm.changeSourceFile = function(){
+          vm.getWordFrequency();
+        };
         vm.changeYear = function(){
           $scope.$apply(function (){
               vm.top50Words = [];
@@ -187,7 +195,7 @@
                    classed: 'dashed'
                  });
 
-                 console.log(finalWordFrequency);
+
 
 
 
@@ -212,6 +220,9 @@
         vm.flotGraphWordFrequency = function(){
 
           };
+        vm.getRelationships = function(){
+          wordFrequency.getRelationships(vm.wikinewsRawData,vm.top50Words);
+        }
   };
 
   angular
