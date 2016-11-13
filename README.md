@@ -4,8 +4,8 @@
 
 Click the screenshot to view the demo.
 
-[![ScreenShot](https://github.com/isreehari/isreehari.github.io/blob/master/media/p2.inukollu.sorbo2.JPG)](https://youtu.be/bLNU7d88GBE)
-[![ScreenShot](https://github.com/isreehari/isreehari.github.io/blob/master/media/p2.inukollu.sorbo.jpg)](https://youtu.be/bLNU7d88GBE)
+[![ScreenShot](https://isreehari.github.io/media/p2.inukollu.sorbo2.jpg)](https://youtu.be/bLNU7d88GBE)
+[![ScreenShot](https://isreehari.github.io/media/p2.inukollu.sorbo.jpg)](https://youtu.be/bLNU7d88GBE)
 
 ## Link to application
 
