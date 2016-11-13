@@ -8,18 +8,64 @@
     function customconfig($httpProvider) { };
     function wordFrequency($http) {
         var wordFrequency = {};
-        wordFrequency.getWordFrequency = function (filter, selectedFile) {
+        wordFrequency.getWordFrequency = function (selectedFile) {
             return $http.get(selectedFile)
                 .then(function (returnedData) {
-                    var returnObj = calWordFrequency(returnedData.data, filter);
+                    var returnObj = calWordFrequency(returnedData.data);
                     return returnObj;
                 }).catch(function (response) {
                     return response;
                 });
         };
+        wordFrequency.getRelationships = function (wikinewsRawData,top50Words) {
+          var wordsRelationShips  = [];
+          var wordsRelationShipsArray  = [];
+          var currentLine = null;
+          var currentList = [];
+              //  top50Words.forEach(function(selecteTerm){
+              var selecteTerm = "usa"
+                  wikinewsRawData.forEach(function(data){
+                      currentLine = data.person.join(" ") + "|" + data.location.join(" ") + "|" + data.organization.join(" ") + "|" + data.miscellaneous.join(" ");
+
+                      currentList =   currentList.concat(data.person);
+                      currentList =   currentList.concat(data.location);
+                      currentList =   currentList.concat(data.organization);
+                      currentList =   currentList.concat(data.miscellaneous);
+
+                      console.log(currentLine);
+
+                      if (!currentLine.includes(selecteTerm)) return;
+
+                      for (var i=0; i<currentList.length;i++){
+                  	    	var term = currentList[i];
+                          if (!wordsRelationShips[selecteTerm])
+                                wordsRelationShips[selecteTerm] = [];
+                  	    	if (!wordsRelationShips[selecteTerm][term])
+                  	    		    wordsRelationShips[selecteTerm][term] = 1;
+                  	    	else
+                  	    		wordsRelationShips[selecteTerm][term]++;
+                  	    }
+
+                  });
+              //  });
+
+                for(var data in wordsRelationShips){
+                  if (data != 'undefined')
+                  {
+                    wordsRelationShipsArray.push({ 'term': data, 'count': wordsRelationShips[data] });
+                  }
+                }
+
+                wordsRelationShipsArray = wordsRelationShipsArray.sort(function(a,b){ return b.count - a.count});
+                wordsRelationShipsArray = wordsRelationShipsArray.slice(0,50);
+
+                console.log(wordsRelationShipsArray.length);
+                return true;
+            };
+
         return wordFrequency;
     };
-    function calWordFrequency(returnedData, filter) {
+    function calWordFrequency(returnedData) {
         var sourceList = {};
         var numSource = {};
         var maxCount = {}; // contain the max frequency for 4 categories
@@ -29,18 +75,17 @@
         var termMaxMax = 1;
         var maximumTerms = 50;
 
-        var minYear = filter.startYear;
-        var maxYear = filter.endYear;
+        var minYear = 2004;
+        var maxYear = 2015;
         var numMonth = 12 * (maxYear - minYear);
         var list = null;
         var termsMaxMax;
         var searchTerm = "";
         var numberInputTerms = 10;
-
         angular.forEach(returnedData, function (data, key) {
             data.date = new Date(data.time);
             data.year = data.date.getFullYear();
-            data.month = 12 * (data.year - minYear) + data.date.getMonth();
+            data.month = data.year+'_'+data.date.getMonth();
 
             if (data.year >= minYear && data.year <= maxYear) {
                 // Add source to sourceList
@@ -161,10 +206,8 @@
 
 
         }); // end of forEach
-
-        topTerms = getRelationships(returnedData, searchTerm, minYear, maxYear, terms, numberInputTerms, numMonth, maximumTerms);
-
-        return topTerms;
+        //topTerms = getRelationships(returnedData, searchTerm, minYear, maxYear, terms, numberInputTerms, numMonth, maximumTerms);
+        return {rawData:returnedData,termsData:terms};
 
 
 
@@ -256,7 +299,7 @@
         });
         numberInputTerms = termArray.length;
         // Compute relationship **********************************************************
-        numNode = Math.min(10, termArray.length);
+        numNode = Math.min(100, termArray.length);
         numNode2 = Math.min(numNode * 5, termArray.length);
 
         for (var i = 0; i < numNode2; i++) {
@@ -316,6 +359,7 @@
 
         return conceptMapData;
     };
+
 
     angular
         .module('cs5331')

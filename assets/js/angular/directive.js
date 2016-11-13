@@ -115,7 +115,7 @@
 
                                       var data = newVal;
 
-                                         
+
 
 
                                          x.domain(d3.extent(data.map(function(d) { return d.date; })));
@@ -185,8 +185,94 @@
 
 
     };
+    function custWordCloud(){
+      // constants
+      // var margin = 20,
+      //     width = 960,
+      //     height = 500,
+      //     color = d3.interpolateRgb("#f77", "#77f");
+      //     return {
+      //             restrict: 'E',
+      //             scope: {
+      //               words: '='
+      //             },
+      //             link: function (scope, element, attrs) {
+      //                   // set up initial svg object
+      //                   var margin = {top: 10, right: 10, bottom: 100, left: 40},
+      //                       margin2 = {top: 430, right: 10, bottom: 20, left: 40},
+      //                       width = 500 - margin.left - margin.right,
+      //                       height = 500 - margin.top - margin.bottom,
+      //                       height2 = 500 - margin2.top - margin2.bottom;
+      //
+      //                   var svg = d3.select(element[0])
+      //                               .append("svg")
+      //                               .attr("width", width + margin.left + margin.right)
+      //                               .attr("height", height + margin.top + margin.bottom)
+      //                               .attr("transform", "translate(250,250)");
+      //
+      //                   scope.$watch('words', function (newVal, oldVal){
+      //
+      //                     var fill = d3.scale.category20();
+      //                    //Draw the word cloud
+      //                    function draw(words) {
+      //                        var cloud = svg1.selectAll("g text").data(words, function(d) { return d.text; })
+      //                        var mouse;
+      //                        //Entering words
+      //                        cloud.enter()
+      //                             .append("text")
+      //                             .style("font-family", "Impact")
+      //                             .attr("val",function(d){return d.text;})
+      //                             .style("fill", function(d, i) { return fill(i); })
+      //                             .attr("text-anchor", "middle")
+      //                             .attr('font-size', 1)
+      //                             .text(function(d) { return d.text; })
+      //                             .on('mousemove', function(d) {
+      //                               mouse = d3.mouse(svg1.node()).map(function(d) { return parseInt(d); });
+      //                               var xCordinate=d3.mouse(this)[0]+1200;
+      //                               var yCordinate=d3.mouse(this)[1]+500;
+      //                              tooltip.classed('hidden', false)
+      //                                     .attr('cursor', 'pointer')
+      //                                     .attr('style', 'left:' + xCordinate +'px; top:' + yCordinate + 'px')
+      //                                     .html("Word:"+d.text+"<br />Frequency:"+Word_frequency[d.text]);
+      //                                }).on('mouseout', function() { tooltip.classed('hidden', true); })
+      //                             .on("click", clicked);
+      //
+      //                        //Entering and existing words
+      //                        cloud.transition()
+      //                             .duration(600)
+      //                             .style("font-size", function(d) { return d.size + "px"; })
+      //                             .attr("transform", function(d) {
+      //                                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+      //                                })
+      //                                .style("fill-opacity", 1);
+      //
+      //                        //Exiting words
+      //                        cloud.exit()
+      //                             .transition()
+      //                             .duration(200)
+      //                             .style('fill-opacity', 1e-6)
+      //                             .attr('font-size', 1)
+      //                             .remove();
+      //                    }
+      //                    return {
+      //                        update: function(words) {
+      //                            d3.layout.cloud().size([600,600])
+      //                              .words(words)
+      //                              .padding(5)
+      //                              .rotate(function() { return ~~(Math.random() * 2) * 90; })
+      //                              .font("Impact")
+      //                              .fontSize(function(d) { return d.size; })
+      //                              .on("end", draw)
+      //                              .start();
+      //                        }
+      //                    }
+      //                   }); // end of watch
+      //           }
+      //         }
+    };
+
     angular
         .module('cs5331')
         .directive('leftSideBar', [leftSideBar])
-        .directive('brushZoom', ['d3',brushZoom])
+        .directive('brushZoom', [brushZoom])        
 })(window.angular);
