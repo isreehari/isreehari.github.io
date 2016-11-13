@@ -24,6 +24,7 @@
           { name: "Huffington Post", filePath: "data/huffington.json" }
         ];
         vm.selectedFile = "data/wikinews.json";
+        vm.finalRelationShipObject = {};
 
         vm.nvd3WordFrequencyGrap = {
           options:{},
@@ -220,8 +221,10 @@
         vm.flotGraphWordFrequency = function(){
 
           };
-        vm.getRelationships = function(){
-          wordFrequency.getRelationships(vm.wikinewsRawData,vm.top50Words);
+        vm.getRelationships = function(selecteTerm = 'usa'){
+          vm.finalRelationShipObject = wordFrequency.getRelationships(vm.wikinewsRawData,selecteTerm);
+
+          console.log(vm.finalRelationShipObject);
         }
   };
 

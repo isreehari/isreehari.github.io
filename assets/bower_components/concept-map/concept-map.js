@@ -40,7 +40,12 @@
         f = d.append("g").attr("class", "episodes"),
         E = d.append("g").attr("class", "nodes");
     var Q = d3.select("#graph-info");
-    d3.json("data/concept-map.json", function(X, Y) {
+
+    d3.json("data/concept-map-2.json", function(x,y) {
+      console.log(y);
+    });
+
+    d3.json("data/concept-map-2.json", function(X, Y) {
         T = d3.map(Y);
         q = d3.merge(T.values());
         x = {};
