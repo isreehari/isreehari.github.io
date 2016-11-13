@@ -51,7 +51,7 @@
 						</li>
 						<li class="page-scroll">
 							<a href="#relationshipes">Relationships</a>
-						</li>						
+						</li>
 						<!-- <li>
 							<a href="#" data-ng-click="mainCtr.leftNavFilterShowhide()"> <i class="glyphicon glyphicon-filter"></i> Filter</a>
 						</li> -->
@@ -85,7 +85,7 @@
 									<div class="panel-title">Word Relationships Graph</div>
 								</div>
 								<div class="panel-body">
-									<div id="graph"></div>
+									<relationship-graph relationship-data="mainCtr.finalRelationShipObject" data-ng-if="mainCtr.ObjectLength(mainCtr.finalRelationShipObject)"> </relationship-graph>
 									<div id="graph-info" style="display:none;"></div>
 								</div>
 								<div class="panel-footer">
@@ -192,7 +192,7 @@
 	<script src="assets/bower_components/angular-nvd3/dist/angular-nvd3.min.js"></script>
 	<script src="assets/bower_components/angular-d3/angular-d3.js"></script>
 
-	<script src="assets/bower_components/concept-map/concept-map.js"></script>
+
 
 
 
