@@ -17,50 +17,142 @@
                     return response;
                 });
         };
-        wordFrequency.getRelationships = function (wikinewsRawData,top50Words) {
+        wordFrequency.getRelationships = function (wikinewsRawData,selecteTerm) {
           var wordsRelationShips  = [];
           var wordsRelationShipsArray  = [];
+          var finalRelationShipObject = {};
           var currentLine = null;
           var currentList = [];
-              //  top50Words.forEach(function(selecteTerm){
-              var selecteTerm = "usa"
-                  wikinewsRawData.forEach(function(data){
-                      currentLine = data.person.join(" ") + "|" + data.location.join(" ") + "|" + data.organization.join(" ") + "|" + data.miscellaneous.join(" ");
+          var category = null;
+          var rootNode = null;
+          var listOnlyWords = [];
+          var internalrelationships = [];
 
-                      currentList =   currentList.concat(data.person);
-                      currentList =   currentList.concat(data.location);
-                      currentList =   currentList.concat(data.organization);
-                      currentList =   currentList.concat(data.miscellaneous);
+                wikinewsRawData.forEach(function(data){
+                      currentLine = data.person.join(" ") + data.location.join(" ")  + data.organization.join(" ") + data.miscellaneous.join(" ");
 
-                      console.log(currentLine);
+                      currentList =   data.allTerms;
+                    //  currentList =   currentList.concat(data.location);
+                      //currentList =   currentList.concat(data.organization);
+                      //currentList =   currentList.concat(data.miscellaneous);
+
+                      if(data.person.join(" ").includes(selecteTerm))
+                         category  = "person";
+
+                      if(data.location.join(" ").includes(selecteTerm))
+                         category  = "location";
+
+                      if(data.organization.join(" ").includes(selecteTerm))
+                         category  = "organization";
+
+                      if(data.miscellaneous.join(" ").includes(selecteTerm))
+                         category  = "miscellaneous";
+
+
 
                       if (!currentLine.includes(selecteTerm)) return;
 
                       for (var i=0; i<currentList.length;i++){
                   	    	var term = currentList[i];
                           if (!wordsRelationShips[selecteTerm])
-                                wordsRelationShips[selecteTerm] = [];
+                                wordsRelationShips[selecteTerm] = {};
                   	    	if (!wordsRelationShips[selecteTerm][term])
-                  	    		    wordsRelationShips[selecteTerm][term] = 1;
+                          {
+                            wordsRelationShips[selecteTerm][term] = {count:1,category:category};
+                          }
                   	    	else
-                  	    		wordsRelationShips[selecteTerm][term]++;
+                          {
+                            wordsRelationShips[selecteTerm][term].count++;
+                            wordsRelationShips[selecteTerm][term].category = category;
+                          }
+
                   	    }
 
                   });
-              //  });
-
-                for(var data in wordsRelationShips){
+                for(var data in wordsRelationShips[selecteTerm]){
                   if (data != 'undefined')
                   {
-                    wordsRelationShipsArray.push({ 'term': data, 'count': wordsRelationShips[data] });
+                    if(data)
+                      wordsRelationShipsArray.push({ 'term': data, 'count': wordsRelationShips[selecteTerm][data].count,'category':wordsRelationShips[selecteTerm][data].category });
                   }
                 }
-
                 wordsRelationShipsArray = wordsRelationShipsArray.sort(function(a,b){ return b.count - a.count});
+                rootNode = wordsRelationShipsArray[0];
                 wordsRelationShipsArray = wordsRelationShipsArray.slice(0,50);
 
-                console.log(wordsRelationShipsArray.length);
-                return true;
+                wordsRelationShipsArray.forEach(function(data){
+                      listOnlyWords.push(data.term);
+                });
+
+                finalRelationShipObject.episodes = [];
+                finalRelationShipObject.themes = [];
+                finalRelationShipObject.perspectives = [];
+
+                finalRelationShipObject['episodes'].push({
+                  type: 'episode',
+                  name:rootNode.term,
+                  description: rootNode.term,
+                  episode:1,
+                  date:"2012-05-05 23:50:11",
+                  slug:rootNode.term.split(' ').join('-'),
+                  links: listOnlyWords.slice(1,50)
+                });
+
+
+
+                listOnlyWords.forEach(function(data,index){
+                  if(index>0)
+                  {
+                    internalrelationships = generatingInternalRelation(wikinewsRawData,data,listOnlyWords);
+                    finalRelationShipObject['episodes'].push({
+                      type: 'episode',
+                      name:data,
+                      description: data,
+                      episode:index+1,
+                      date: "2012-05-05 23:50:11",
+                      slug:data.split(' ').join('-'),
+                      links: internalrelationships
+                    });
+                  }
+
+                });
+
+
+
+                listOnlyWords.forEach(function(data,index){
+                  if(index <= 25)
+                  {
+                    finalRelationShipObject['themes'].push({
+                      type: 'theme',
+                      name:data,
+                      description: null,
+                      slug:data.split(' ').join('-')
+                    });
+                  }
+                  else {
+                    finalRelationShipObject['perspectives'].push({
+                      type: 'perspective',
+                      name:data,
+                      description: data,
+                      slug:data.split(' ').join('-'),
+                      count: 10,
+                      group: Math.max(4,Math.random())
+                    });
+
+                  }
+
+                });
+
+
+
+              //  console.log(finalRelationShipObject);
+
+
+
+                //generatingInternalRelation(wikinewsRawData);
+
+                //console.log(wordsRelationShipsArray.length);
+                return finalRelationShipObject;
             };
 
         return wordFrequency;
@@ -346,6 +438,30 @@
 
     };
     function getLeastFrequencyWord(terms, maximumTerms) { };
+    function generatingInternalRelation(wikinewsRawData,selecteTerm,listOnlyWords){
+
+      var currentLine = null;
+      var internalrelationships = [];
+
+      wikinewsRawData.forEach(function(data){
+                if (data.allTerms.includes(selecteTerm)){
+                  listOnlyWords.forEach(function(word){
+                        if(word === selecteTerm )
+                            return;
+                            else{
+                                  if(data.allTerms.includes(word)){
+                                    if(!internalrelationships.includes(word))
+                                          internalrelationships.push(word);
+                                  }
+                                }
+                      });
+                  }
+        });
+
+        //console.log(selecteTerm + " --> " + internalrelationships.length);
+
+        return internalrelationships;
+    };
     function conceptMAP($http) {
         var conceptMapData = {};
         conceptMapData.getWordFrequency = function (filter) {

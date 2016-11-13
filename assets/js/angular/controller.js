@@ -24,7 +24,7 @@
           { name: "Huffington Post", filePath: "data/huffington.json" }
         ];
         vm.selectedFile = "data/wikinews.json";
-
+        vm.finalRelationShipObject = {};
         vm.nvd3WordFrequencyGrap = {
           options:{},
           data:[
@@ -102,13 +102,14 @@
             vm.wikinewsRawData = returnedData.rawData;
             vm.wikinewsData = returnedData.termsData;
             vm.top50Words = vm.getTop50Words();
-            vm.getRelationships();
+
           });
         };
         vm.resetWordFrequency = function(){
           vm.top50Words = [];
           vm.wikinewsData = [];
           vm.nvd3WordFrequencyGrap.data = [];
+          vm.finalRelationShipObject = {};
         };
         vm.getWordFrequency();
         vm.changeSourceFile = function(){
@@ -118,10 +119,12 @@
           $scope.$apply(function (){
               vm.top50Words = [];
               vm.nvd3WordFrequencyGrap.data = [];
+              vm.finalRelationShipObject = {};
           });
           var top50Words = vm.getTop50Words();
           $scope.$apply(function (){
                 vm.top50Words = top50Words;
+                vm.getRelationships(selectedTerm);
           });
 
         }
@@ -170,8 +173,7 @@
 
 
              for(var tempYear=vm.filter.startYear; tempYear <= vm.filter.endYear; tempYear++){
-               for(var tempMonth=1;tempMonth<=12;tempMonth++)
-               {
+               for(var tempMonth=1;tempMonth<=12;tempMonth++){
                     month = tempYear+'_'+tempMonth;
                     jsObj = parseDate(tempYear+ '-' +tempMonth + '-' +  '01');
                     if(vm.wikinewsData[selectedTerm][month])
@@ -203,7 +205,6 @@
 
                    if(finalWordFrequency.length>1)
                    {
-
                      vm.nvd3WordFrequencyGrap.data = finalWordFrequency;
                      vm.nvd3WordFrequencyGrap.api.update();
                    }
@@ -211,6 +212,9 @@
                      vm.nvd3WordFrequencyGrap.data = finalWordFrequency;
                      vm.nvd3WordFrequencyGrap.api.refresh();
                    }
+
+                   vm.finalRelationShipObject = {};
+                   vm.getRelationships(selectedTerm);
 
                //vm.wordFrequencyGrapData = vm.wordFrequencyGrapData;
              });
@@ -220,8 +224,11 @@
         vm.flotGraphWordFrequency = function(){
 
           };
-        vm.getRelationships = function(){
-          wordFrequency.getRelationships(vm.wikinewsRawData,vm.top50Words);
+        vm.getRelationships = function(selecteTerm = 'usa'){
+          vm.finalRelationShipObject = wordFrequency.getRelationships(vm.wikinewsRawData,selecteTerm);
+        }
+        vm.ObjectLength = function(data){
+              return Object.keys(data).length>0?true:false;
         }
   };
 
