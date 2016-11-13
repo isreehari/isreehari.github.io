@@ -447,7 +447,7 @@
                                   })
                               } else {
                                   if (ab && ab.type === "theme") {
-                                      Y.append("text").attr("fill", "#aaa").attr("text-anchor", "middle").attr("y", (o + t) * -1).text("THEME")
+                                      Y.append("text").attr("fill", "#aaa").attr("text-anchor", "middle").attr("y", (o + t) * -1).text("Terms")
                                   } else {
                                       if (ab && ab.type === "perspective") {
                                           var ad = ac.selectAll(".pair").data(A.get(ab.group).filter(function(ae) {
@@ -458,14 +458,14 @@
                                           }).text(function(ae) {
                                               return "(vs. " + ae.name + ")"
                                           }).attr("class", "pair").on("click", G);
-                                          Y.append("text").attr("fill", "#aaa").attr("text-anchor", "middle").attr("y", (o + t) * -1).text("PERSPECTIVE");
+                                          Y.append("text").attr("fill", "#aaa").attr("text-anchor", "middle").attr("y", (o + t) * -1).text("Terms");
                                           ad.exit().remove()
                                       }
                                   }
                               }
                               ac.exit().remove();
                               var X = d.selectAll(".all-episodes").data(Z);
-                              X.enter().append("text").attr("text-anchor", "start").attr("x", a / -2 + t).attr("y", c / 2 - t).text("all episodes").attr("class", "all-episodes").on("click", O);
+                              X.enter().append("text").attr("text-anchor", "start").attr("x", a / -2 + t).attr("y", c / 2 - t).text("All Terms").attr("class", "all-episodes").on("click", O);
                               X.exit().remove()
                           }
 

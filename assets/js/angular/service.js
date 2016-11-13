@@ -98,12 +98,18 @@
                   links: listOnlyWords.slice(1,50)
                 });
 
+                var loopIndex = 0;
+                var loopLength = 0;
 
 
                 listOnlyWords.forEach(function(data,index){
                   if(index>0)
                   {
-                    internalrelationships = generatingInternalRelation(wikinewsRawData,data,listOnlyWords);
+                    var loopIndex = index;
+                    var loopLength = listOnlyWords.length;
+
+
+                    internalrelationships = generatingInternalRelation(wikinewsRawData,data,listOnlyWords.slice(loopIndex,loopLength));
                     finalRelationShipObject['episodes'].push({
                       type: 'episode',
                       name:data,
@@ -111,7 +117,7 @@
                       episode:index+1,
                       date: "2012-05-05 23:50:11",
                       slug:data.split(' ').join('-'),
-                      links: internalrelationships
+                      links: internalrelationships.slice(0,6)
                     });
                   }
 
@@ -145,7 +151,7 @@
 
 
 
-              //  console.log(finalRelationShipObject);
+              console.log(finalRelationShipObject);
 
 
 
