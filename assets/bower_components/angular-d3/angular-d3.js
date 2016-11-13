@@ -9522,10 +9522,10 @@ angular.module('d3').directive('wordcloud', [
           fontFamily = attrs.fontFamily;
         if (angular.isDefined(attrs.fontSize))
           fontSize = attrs.fontSize * 1 || 0;
-        if (angular.isDefined(scope.words))
-          words = scope.words;
-        if (angular.isDefined(scope.words) && angular.isArray(words)) {
-          words = scope.words;
+        if (angular.isDefined(scope.words.words))
+          words = scope.words.words;
+        if (angular.isDefined(scope.words.words) && angular.isArray(words)) {
+          words = scope.words.words;
         } else if (angular.element(element).find('word').length > 0) {
           var subelements = angular.element(element).find('word');
           words = [];
@@ -9557,6 +9557,7 @@ angular.module('d3').directive('wordcloud', [
           })).rotate(function () {
             return ~~(Math.random() * 2) * -90;
           }).font(fontFamily).fontSize(function (d) {
+            //Math.max( Math.random() * 40, scope.words.wordsCount[d.text]/5)
             return d.size;
           }).on('end', draw).start();
           function draw(words) {
@@ -9564,8 +9565,9 @@ angular.module('d3').directive('wordcloud', [
             var width_translate = width / 2;
             var rootElement = element[0];
             d3.select(rootElement).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', 'translate(' + width_translate + ',' + height_translate + ')').selectAll('text').data(words).enter().append('text').style('font-size', function (d) {
-              return d.size + 'px';
+            return d.size + 'px';
             }).style('font-family', fontFamily).style('fill', function (d, i) {
+              d.fill = fill(i);
               return fill(i);
             }).attr('text-anchor', 'middle').attr('transform', function (d) {
               return 'translate(' + [
