@@ -122,9 +122,10 @@
         };
         vm.changeYear = function(){
           $scope.$apply(function (){
-              vm.top50Words = [];
-              vm.nvd3WordFrequencyGrap.data = [];
-              vm.finalRelationShipObject = {};
+            vm.wikinewsData = [];
+            vm.top50Words = [];
+            vm.nvd3WordFrequencyGrap.data = [];
+            vm.finalRelationShipObject = {};
           });
           var top50Words = vm.getTop50Words();
           $scope.$apply(function (){
