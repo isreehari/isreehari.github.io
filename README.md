@@ -1,24 +1,24 @@
-# TTU CS5331 Project 2: Text and Geospatial Visualization
-
-## Demo(https://isreehari.github.io)
-
-Click the screenshot to view the demo.
-
-[![ScreenShot](https://isreehari.github.io/media/p2.inukollu.sorbo2.jpg)](https://youtu.be/bLNU7d88GBE)
-[![ScreenShot](https://raw.githubusercontent.com/isreehari/isreehari.github.io/master/media/p2.inukollu.sorbo.JPG)](https://youtu.be/bLNU7d88GBE)
+# TTU CS5331 Project 2: Text and Visualization
 
 ## Link to application
 
-[Click here.](https://isreehari.github.io)
+[isreehari.github.io](https://isreehari.github.io)
+
+## Demo video
+
+Click a screenshot to view the demo.
+
+[![ScreenShot](https://isreehari.github.io/media/p2.inukollu.sorbo2.jpg)](https://youtu.be/xmOe5YCR_BU)
+[![ScreenShot](https://raw.githubusercontent.com/isreehari/isreehari.github.io/master/media/p2.inukollu.sorbo.JPG)](https://youtu.be/xmOe5YCR_BU)
 
 ## Visualization features
 
 1. Adjust the slider to select the date range.
 2. Select the data source from the dropdown.
-3. Click Get Data to generate the word cloud.
+3. Word cloud will be regenerated on any change of date range or data source.
 4. Click a term in the word cloud to show its frequency in the time series chart.
-5. Click the nodes in the word relationships graph to navigate through the network of relationships.
-6. Click a Location in the word cloud to show the location on the map.
+5. Select the time series style - Stack, Stream, or Expanded - with the radio buttons on the word frequency chart.
+6. Click the nodes in the word relationships graph to navigate through the network of relationships.
 
 ## Data description
 
@@ -76,13 +76,12 @@ Here's a sample of one of the json files:
 
 ## Team member contributions
 
-### Hari Inukollu
+### Hari Inukollu (Team lead)
 
 1. AngularJS application framework
 2. Word cloud final version
 3. Time series
 4. Word relationship graph
-5. Term map
 
 ### Jeff Sorbo
 
@@ -90,4 +89,3 @@ Here's a sample of one of the json files:
 2. Initial work on word cloud directive
 3. Initial work on term frequency service
 4. Data source selection
-5. Documentation and demo video
