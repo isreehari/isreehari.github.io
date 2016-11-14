@@ -9558,9 +9558,9 @@ angular.module('d3').directive('wordcloud', [
             return ~~(Math.random() * 2) * -90;
           }).font(fontFamily).fontSize(function (d) {
             //Math.max( Math.random() * 40, scope.words.wordsCount[d.text]/5)
-            console.log(scope.words.words.indexOf(d.text));
-            return (scope.words.words.length - scope.words.words.indexOf(d.text))*4;
-            //return d.size;
+
+            //return (scope.words.words.length - scope.words.words.indexOf(d.text))*4;
+            return d.size;
           }).on('end', draw).start();
           function draw(words) {
             var height_translate = height / 2;

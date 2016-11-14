@@ -113,6 +113,11 @@
         };
         vm.getWordFrequency();
         vm.changeSourceFile = function(){
+          vm.wikinewsData = [];
+          vm.top50Words = [];
+          vm.nvd3WordFrequencyGrap.data = [];
+          vm.finalRelationShipObject = {};
+
           vm.getWordFrequency();
         };
         vm.changeYear = function(){
